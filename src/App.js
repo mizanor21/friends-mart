@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Banner from './components/Home/Banner/Banner';
 import HomePage from './components/Home/HomePage/HomePage';
 import AboutUs from './components/OtherPages/AboutUs/AboutUs';
 import Blog from './components/OtherPages/Blog/Blog';
 import Contact from './components/OtherPages/Contact/Contact';
+import Login from './components/OtherPages/Login/Login';
+import Signup from './components/OtherPages/Signup/Signup';
 import Main from './layouts/Main/Main';
 
 function App() {
@@ -30,7 +31,12 @@ function App() {
           element: <Contact></Contact>
         },
         {
-
+          path: '/login',
+          element: <Login></Login>
+        },
+        {
+          path: '/signup',
+          element: <Signup></Signup>
         }
       ]
     }
