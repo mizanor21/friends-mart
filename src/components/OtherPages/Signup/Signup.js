@@ -1,24 +1,38 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
-    const { createUser } = useContext(AuthContext);
+    const { createUser, googleSignin } = useContext(AuthContext);
     const handleSignup = data => {
         // console.log(data.email, data.password);
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                alert('Successfully create account');
+                // console.log(user);
+                toast('Successfully create account');
             })
             .catch(error => {
                 const errorMessage = error.message;
-                alert(errorMessage);
+                toast(errorMessage);
             })
     }
+
+    const handleGoogleSignIn = () => {
+        googleSignin()
+            .then(result => {
+                const user = result.user;
+                toast('Successfully google sign in!');
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                toast(errorMessage);
+            })
+    }
+
     return (
         <div className='flex justify-center items-center min-h-screen'>
             <div className="shadow-2xl p-10 rounded-xl">
@@ -48,7 +62,7 @@ const Signup = () => {
                     <small>Already have an account? <Link to={'/login'} className='text-green-600'>Please login</Link></small>
                 </div>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onSubmit={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
