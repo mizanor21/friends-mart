@@ -25,6 +25,7 @@ const Signup = () => {
         googleSignin()
             .then(result => {
                 const user = result.user;
+                console.log(user)
                 toast('Successfully google sign in!');
             })
             .catch(error => {
@@ -62,7 +63,7 @@ const Signup = () => {
                     <small>Already have an account? <Link to={'/login'} className='text-green-600'>Please login</Link></small>
                 </div>
                 <div className="divider">OR</div>
-                <button onSubmit={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
