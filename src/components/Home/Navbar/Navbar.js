@@ -7,7 +7,6 @@ const Navbar = () => {
     console.log(user)
     const navItem = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link to={'/categories'}>Categories</Link></li>
         <li><Link to={'/blog'}>Blog</Link></li>
         <li><Link to={'/about'}>About Us</Link></li>
         <li><Link to={'/contact'}>Contact</Link></li>
@@ -67,9 +66,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                 </div>
-                <label htmlFor="products-drawer" tabIndex={0} className="btn btn-ghost btn-circle lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-                </label>
+
             </div>
         </div>
     );
