@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import CartProduct from '../ProductsDrawer/CartProduct/CartProduct';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [product, setProduct] = useState('');
     const url = `http://localhost:5000/addcart?email=${user?.email}`;
     // console.log(url);
@@ -15,6 +16,16 @@ const Navbar = () => {
             fetch(url)
                 .then(res => res.json())
     })
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success('Logout successfully!');
+            })
+            .catch(() => {
+
+            })
+    }
     // console.log(product.img)
     const navItem = <>
         {/* <li><Link to={'/'}>Home</Link></li>
@@ -22,7 +33,7 @@ const Navbar = () => {
         <li><Link to={'/about'}>About Us</Link></li>
         <li><Link to={'/contact'}>Contact</Link></li> */}
         {
-            user ? <li><Link to={'/'}>Log Out</Link></li> : <li><Link to={'/Log in'}>Log in</Link></li>
+            user ? <button onClick={handleLogOut}>Logout</button> : <li><Link to={'/login'}>Log in</Link></li>
         }
     </>
 
@@ -69,7 +80,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li><Link>Settings</Link></li>
-                            <li><Link>Logout</Link></li>
+                            <button onClick={handleLogOut}>Logout</button>
                         </ul>
                     </div>
                 </div>
