@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../../contexts/AuthProvider/AuthProvider';
 
 const Product = ({ product }) => {
+    const { user } = useContext(AuthContext);
     const { img, name, price } = product;
     // console.log(product)
+    const handleAddCart = () => {
+        const productInfo = {
+            img,
+            name,
+            price,
+            email: user.email
+        }
+        console.log(productInfo);
+        fetch('http://localhost:5000/addcart', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(productInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    // console.log(data);
+                    toast.success('Successfully add cart!')
+                    // refetch();
+                }
+                else {
+                    toast.error(data.message)
+                }
+
+            })
+            .catch(error => console.error(error));
+    }
     return (
         <div>
             <div className="card bg-base-100 shadow-xl">
@@ -18,8 +50,8 @@ const Product = ({ product }) => {
 
                     <p>${price}</p>
                     <div className="card-actions flex justify-end">
-                        <button className="btn btn-secondary sm:btn-sm md:btn-md">Buy Now</button>
-                        <button className="btn btn-outline btn-secondary sm:btn-sm md:btn-md">Add to cart</button>
+                        {/* <button onSubmit={handleAddCart}>add to cart</button> */}
+                        <input onClick={handleAddCart} className="btn btn-outline btn-secondary sm:btn-sm md:btn-md" type="submit" value="Add to cart" />
                     </div>
                 </div>
             </div>
